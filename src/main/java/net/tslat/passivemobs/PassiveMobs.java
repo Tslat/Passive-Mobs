@@ -12,7 +12,7 @@ import static net.tslat.passivemobs.PassiveMobs.MOD_ID;
 @Mod(MOD_ID)
 public class PassiveMobs {
 	public static final String MOD_ID = "passivemobs";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "1.1";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 	public PassiveMobs() {
