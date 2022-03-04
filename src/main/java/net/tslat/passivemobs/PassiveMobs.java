@@ -1,6 +1,6 @@
 package net.tslat.passivemobs;
 
-import net.minecraft.entity.MobEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +20,7 @@ public class PassiveMobs {
 	}
 
 	private void entityTarget(final LivingSetAttackTargetEvent ev) {
-		if (ev.getTarget() != null && ev.getEntityLiving() instanceof MobEntity)
-			((MobEntity)ev.getEntityLiving()).setTarget(null);
+		if (ev.getTarget() != null && ev.getEntityLiving() instanceof Mob)
+			((Mob) ev.getEntityLiving()).setTarget(null);
 	}
 }
