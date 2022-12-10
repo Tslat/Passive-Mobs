@@ -3,7 +3,10 @@
   "package": "net.tslat.passivemobs.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "passivemobs.refmap.json",
-  "mixins": ["BrainMixin"],
+  "mixins": [
+    "BrainMixin",
+    "MobMixin"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1

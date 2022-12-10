@@ -1,95 +1,46 @@
-buildscript {
+subprojects {
+    apply plugin: 'java'
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    java.withSourcesJar()
+        
+    jar {
+        manifest {
+            attributes([
+                'Specification-Title'     : mod_name,
+                'Specification-Vendor'    : mod_author,
+                'Specification-Version'   : project.jar.archiveVersion,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_author,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Timestamp'              : System.currentTimeMillis(),
+                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                'Built-On-Minecraft'      : minecraft_version
+            ])
+        }
+    }
+
     repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7.+'
-    }
-}
 
-plugins {
-    id 'eclipse'
-    id 'maven-publish'
-}
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
-
-
-version = mod_version
-group = 'net.tslat.passivemobs'
-archivesBaseName = modid
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-
-minecraft {
-    mappings channel: 'official', version: '1.18.2'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            taskName 'Client'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-            arg "-mixin.config="+modid+".mixins.json"
-            property 'forge.enabledGameTestNamespaces', 'passivemobs'
-
-            mods {
-                passivemobs {
-                    source sourceSets.main
-                }
-            }
+        maven {
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
 
-        server {
-            workingDirectory project.file('run')
-
-            taskName 'Server'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-            arg "-mixin.config="+modid+".mixins.json"
-
-            mods {
-                passivemobs {
-                    source sourceSets.main
-                }
-            }
+        maven {
+            name = "Forge"
+            url = 'https://maven.minecraftforge.net'
         }
     }
-}
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        it.options.release = 17
+    }
 
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.2'
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-}
-
- mixin {
-     add sourceSets.main, "${modid}.refmap.json"
- }
-
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : "Passive Mobs",
-                "Specification-Vendor"    : "Tslat",
-                "Specification-Version"   : "1.18.2",
-                "Implementation-Title"    : "Passive Mobs",
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "Tslat",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "${modid}.mixins.json"
-        ])
+    tasks.withType(GenerateModuleMetadata) {
+        enabled = false
     }
 }
-
-jar.finalizedBy('reobfJar')
