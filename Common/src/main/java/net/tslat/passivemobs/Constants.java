@@ -1,7 +1,7 @@
 package net.tslat.passivemobs;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -16,5 +16,5 @@ public class Constants {
 	public static final String MOD_NAME = "PassiveMobs";
 	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
-	public static final Supplier<TagKey<EntityType<?>>> PACIFICATION_IMMUNE_TAG = Suppliers.memoize(() -> TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immune_to_pacification")));
+	public static final Supplier<TagKey<EntityType<?>>> PACIFICATION_IMMUNE_TAG = Suppliers.memoize(() -> TagKey.create(Registry.ENTITY_TYPE.key(), new ResourceLocation("immune_to_pacification")));
 }
