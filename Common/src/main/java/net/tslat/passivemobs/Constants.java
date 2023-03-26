@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.function.Supplier;
 
 public class Constants {
-	public static final String VERSION = "1.3";
+	public static final String VERSION = "1.3.1";
 	public static final String MOD_ID = "passivemobs";
 	public static final String MOD_NAME = "PassiveMobs";
 	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
