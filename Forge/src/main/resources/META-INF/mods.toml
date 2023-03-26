@@ -14,6 +14,6 @@ description="Everyone take a chill pill"
 [[dependencies.passivemobs]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,)"
+    versionRange="[1.19.3,)"
     ordering="NONE"
     side="BOTH"
