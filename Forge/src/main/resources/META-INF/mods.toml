@@ -11,7 +11,7 @@ logoFile="logo.png"
 authors="Tslat"
 description="Everyone take a chill pill"
 
-[[dependencies.smartbrainlib]]
+[[dependencies.passivemobs]]
     modId="forge"
     mandatory=true
     versionRange="[44,)"
