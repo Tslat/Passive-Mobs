@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[43,)"
+loaderVersion="[44,)"
 license="MIT"
 issueTrackerURL="https://github.com/Tslat/Passive-Mobs/issues"
 
@@ -11,6 +11,12 @@ logoFile="logo.png"
 authors="Tslat"
 description="Everyone take a chill pill"
 
+[[dependencies.smartbrainlib]]
+    modId="forge"
+    mandatory=true
+    versionRange="[44,)"
+    ordering="NONE"
+    side="BOTH"
 [[dependencies.passivemobs]]
     modId="minecraft"
     mandatory=true
