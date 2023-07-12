@@ -1,15 +1,13 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "net.tslat.passivemobs.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "passivemobs.refmap.json",
   "mixins": [
     "BrainMixin",
-    "MobMixin"
+    "MobMixin",
+    "WitherBossMixin"
   ],
-  "client": [],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "minVersion": "0.8"
+  "client": []
 }
