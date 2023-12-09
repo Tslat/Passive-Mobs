@@ -114,3 +114,13 @@ curseforge {
         }
     }
 }
+
+modrinth {
+    token = System.getenv("modrinthKey")
+    projectId = mod_id
+    versionNumber = project.version
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = ["${project.minecraft_version}"]
+    loaders = ["neoforge"]
+}
