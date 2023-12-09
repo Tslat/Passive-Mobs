@@ -63,7 +63,7 @@ curseforge {
 
     project {
         id = curseforge_id
-        changelog = 'https://github.com/Tslat/Passive-Mobs/commits/1.20.2'
+        changelog = 'https://github.com/Tslat/Passive-Mobs/commits/1.20.4'
         releaseType = 'release'
         addGameVersion minecraft_version
 
