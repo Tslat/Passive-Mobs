@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="${loader_version_range}"
+loaderVersion="${neoforge_loader_version_range}"
 license="MIT"
 issueTrackerURL="https://github.com/Tslat/Passive-Mobs/issues"
 
@@ -11,10 +11,13 @@ logoFile="logo.png"
 authors="Tslat"
 description="Everyone take a chill pill"
 
+[[mixins]]
+    config = "${mod_id}.mixins.json"
+
 [[dependencies.${mod_id}]]
-    modId="forge"
+    modId="neoforge"
     mandatory=true
-    versionRange="${forge_version_range}"
+    versionRange="${neoforge_version_range}"
     ordering="NONE"
     side="BOTH"
 [[dependencies.${mod_id}]]

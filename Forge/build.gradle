@@ -63,6 +63,12 @@ minecraft {
     }
 }
 
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
 }
