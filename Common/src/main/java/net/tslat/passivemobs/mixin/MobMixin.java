@@ -12,11 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Mob.class)
 public class MobMixin {
-	@Inject(
-			method = "setTarget",
-			at = @At("HEAD"),
-			cancellable = true
-	)
+	@Inject(method = "setTarget", at = @At("HEAD"), cancellable = true)
 	public void setTarget(@Nullable LivingEntity target, CallbackInfo callback) {
 		if (target != null && !((Mob)(Object)this).getType().is(Constants.PACIFICATION_IMMUNE_TAG.get()))
 			callback.cancel();
