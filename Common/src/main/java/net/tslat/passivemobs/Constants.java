@@ -11,5 +11,5 @@ import java.util.function.Supplier;
 public class Constants {
 	public static final String MOD_ID = "passivemobs";
 
-	public static final Supplier<TagKey<EntityType<?>>> PACIFICATION_IMMUNE_TAG = Suppliers.memoize(() -> TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immune_to_pacification")));
+	public static final Supplier<TagKey<EntityType<?>>> PACIFICATION_IMMUNE_TAG = Suppliers.memoize(() -> TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", "immune_to_pacification")));
 }
