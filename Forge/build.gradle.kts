@@ -168,7 +168,6 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     mainFile.addGameVersion(mcVersion)
     mainFile.addJavaVersion("Java ${javaVersion}")
     mainFile.changelog = modChangelogUrl
-    mainFile.addRelation("forge-config-api-port-fabric", Constants.RELATION_REQUIRED)
 
     //https://github.com/Darkhax/CurseForgeGradle#available-properties
 }

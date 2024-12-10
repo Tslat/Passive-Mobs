@@ -105,7 +105,6 @@ modrinth {
     loaders.set(listOf("fabric"))
     dependencies {
         required.project("fabric-api")
-        required.project("forge-config-api-port")
     }
 
     //debugMode = true
@@ -123,7 +122,6 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     mainFile.addGameVersion(mcVersion)
     mainFile.addJavaVersion("Java ${javaVersion}")
     mainFile.changelog = modChangelogUrl
-    mainFile.addRelation("forge-config-api-port-fabric", Constants.RELATION_REQUIRED)
 
     debugMode = true
     //https://github.com/Darkhax/CurseForgeGradle#available-properties
