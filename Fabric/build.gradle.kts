@@ -103,9 +103,6 @@ modrinth {
     gameVersions.set(listOf(mcVersion))
     versionType = "release"
     loaders.set(listOf("fabric"))
-    dependencies {
-        required.project("fabric-api")
-    }
 
     //debugMode = true
     //https://github.com/modrinth/minotaur#available-properties
