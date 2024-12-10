@@ -120,7 +120,7 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     mainFile.addJavaVersion("Java ${javaVersion}")
     mainFile.changelog = modChangelogUrl
 
-    debugMode = true
+    //debugMode = true
     //https://github.com/Darkhax/CurseForgeGradle#available-properties
 }
 
