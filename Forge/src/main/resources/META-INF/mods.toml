@@ -1,15 +1,15 @@
 modLoader="javafml"
-loaderVersion="${loader_version_range}"
-license="MIT"
-issueTrackerURL="https://github.com/Tslat/Passive-Mobs/issues"
+loaderVersion="${forge_loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="${issues_url}"
 
 [[mods]]
 modId="${mod_id}"
-version="${mod_version}"
-displayName="Passive Mobs"
+version="${version}"
+displayName="${mod_display_name}"
 logoFile="logo.png"
-authors="Tslat"
-description="Everyone take a chill pill"
+authors="${mod_authors}"
+description="${mod_description}"
 
 [[dependencies.${mod_id}]]
     modId="forge"

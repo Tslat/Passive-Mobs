@@ -1,19 +1,19 @@
 {
     "schemaVersion": 1,
-    "id": "passivemobs",
+    "id": "${mod_id}",
     "version": "${version}",
   
-    "name": "Passive Mobs",
-    "description": "Everybody take a chill pill",
+    "name": "${mod_display_name}",
+    "description": "${mod_description}",
     "authors": [
-      "Tslat"
+      "${mod_authors}"
     ],
     "contact": {
-      "homepage": "https://www.curseforge.com/minecraft/mc-mods/passive-mobs",
-      "sources": "https://github.com/Tslat/Passive-Mobs"
+      "homepage": "${homepage_url}",
+      "sources": "${sources_url}"
     },
   
-    "license": "MIT",
+    "license": "${mod_license}",
     "icon": "logo.png",
   
     "environment": "*",
@@ -27,9 +27,9 @@
     ],
   
     "depends": {
-      "fabricloader": ">=0.16",
-      "minecraft": ">=1.21",
-      "java": ">=21"
+      "fabricloader": ">=${fabric_loader_version_range}",
+      "minecraft": ">=${minecraft_version}",
+      "java": ">=${java_version}"
     }
   }
   
