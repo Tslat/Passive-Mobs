@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.tslat.passivemobs.Constants;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +21,7 @@ public class MobMixin {
 			Mob self = (Mob)(Object)this;
 
 			if (!self.getType().is(Constants.PACIFICATION_IMMUNE_TAG.get())) {
-				if (self instanceof Monster || (self instanceof NeutralMob && !(target instanceof Monster)) || (target instanceof OwnableEntity ownable && !(ownable.getOwner() instanceof Monster)))
+				if (self instanceof Enemy || (self instanceof NeutralMob && !(target instanceof Enemy)) || (target instanceof OwnableEntity ownable && !(ownable.getOwner() instanceof Enemy)))
 					callback.cancel();
 			}
 		}
