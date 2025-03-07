@@ -20,7 +20,7 @@ public class BrainMixin {
 		if (memory.isPresent()) {
 			if (moduleType == MemoryModuleType.ATTACK_TARGET || moduleType == MemoryModuleType.NEAREST_ATTACKABLE) {
 				if (memory.get().getValue() instanceof LivingEntity target) {
-					if (!(target instanceof Monster) && (!(target instanceof OwnableEntity ownable) || !(ownable.getOwner() instanceof Monster)))
+					if (!(target instanceof Enemy) && (!(target instanceof OwnableEntity ownable) || !(ownable.getOwner() instanceof Enemy)))
 						callback.cancel();
 				}
 			}

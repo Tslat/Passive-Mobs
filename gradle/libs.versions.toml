@@ -1,6 +1,6 @@
 [versions]
 # Common
-passivemobs = "1.3.5"
+passivemobs = "1.3.6"
 minecraft-range = "[1.21.4,)"
 minecraft = "1.21.4"
 parchment-minecraft = "1.21.4"
@@ -10,36 +10,36 @@ jopt-simple = "5.0.4"
 java = "21"
 
 # Fabric
-fabric = "0.16.9"
+fabric = "0.16.10"
 fabric-range = "0.16"
-fabric-api = "0.111.0+1.21.4"
+fabric-api = "0.118.0+1.21.4"
 fabric-api-range = "0.110.0+1.21.4"
 
 # Forge
 forge-fml-range = "[54,)"
 forge-range = "[54.0.0,)"
-forge = "54.0.6"
-forge-mc = "1.21.4-54.0.6"
+forge = "54.1.0"
+forge-mc = "1.21.4-54.1.0"
 
 # Neoforge
 neoforge-loader-range = "[5,)"
-neoforge-range = "[21.4.8-beta,)"
-neoforge = "21.4.13-beta"
+neoforge-range = "[21.4.100-beta,)"
+neoforge = "21.4.109-beta"
 
 # Dependencies
 mixin = "0.8.7"
-mixinextras = "0.3.5"
+mixinextras = "0.4.1"
 mixinextras-range = "[0.3.5,)"
 
 # Plugins
-plugin-moddevgradle = "2.0.58-beta"
+plugin-moddevgradle = "2.0.78"
 plugin-minotaur = "2.8.7"
 plugin-curseforge-gradle = "1.1.25"
 plugin-idea-ext = "1.1.8"
 plugin-forge-gradle = "[6.0.24,6.2)"
 plugin-mixin = "0.7.+"
 plugin-parchment-forge-gradle = "1.+"
-plugin-loom = "1.9-SNAPSHOT"
+plugin-loom = "1.10-SNAPSHOT"
 
 [libraries]
 # Mixin
