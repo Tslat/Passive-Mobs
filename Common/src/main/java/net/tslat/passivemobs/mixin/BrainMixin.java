@@ -5,7 +5,7 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.ExpirableValue;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Enemy;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +20,7 @@ public class BrainMixin {
 		if (memory.isPresent()) {
 			if (moduleType == MemoryModuleType.ATTACK_TARGET || moduleType == MemoryModuleType.NEAREST_ATTACKABLE) {
 				if (memory.get().getValue() instanceof LivingEntity target) {
-					if (!(target instanceof Monster) && (!(target instanceof OwnableEntity ownable) || !(ownable.getOwner() instanceof Monster)))
+					if (!(target instanceof Enemy) && (!(target instanceof OwnableEntity ownable) || !(ownable.getOwner() instanceof Enemy)))
 						callback.cancel();
 				}
 			}
