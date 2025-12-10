@@ -76,6 +76,10 @@ loom {
     }
 }
 
+tasks.withType<Test>().configureEach {
+    failOnNoDiscoveredTests = false
+}
+
 tasks.withType<JavaCompile>().configureEach {
     source(project(":common").sourceSets.getByName("main").allSource)
 }
