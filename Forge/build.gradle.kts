@@ -57,6 +57,20 @@ minecraft {
     }
 }
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Forge"
+                url = uri("https://maven.minecraftforge.net/")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("net.minecraftforge")
+        }
+    }
+}
+
 dependencies {
     implementation(minecraft.dependency(libs.forge))
     compileOnly(project(":common"))
