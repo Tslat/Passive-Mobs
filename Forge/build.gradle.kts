@@ -1,4 +1,3 @@
-import net.darkhax.curseforgegradle.Constants
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
