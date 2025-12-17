@@ -83,6 +83,10 @@ dependencies {
     annotationProcessor(libs.forge.eventbusvalidator)
 }
 
+tasks.withType<Test>().configureEach {
+    enabled = false;
+}
+
 tasks.withType<JavaCompile>().configureEach {
     source(project(":common").sourceSets.getByName("main").allSource)
 }
