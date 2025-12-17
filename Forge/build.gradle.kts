@@ -19,7 +19,7 @@ val javaVersion        = libs.versions.java.get()
 val mcVersion          = libs.versions.minecraft.asProvider().get()
 val parchmentMcVersion = libs.versions.parchment.minecraft.get()
 val parchmentVersion   = libs.versions.parchment.asProvider().get()
-val forgeVersion= libs.versions.forge.asProvider().get()
+val forgeVersion       = libs.versions.forge.asProvider().get()
 
 version = modVersion
 
@@ -76,7 +76,7 @@ repositories {
 }
 
 dependencies {
-    implementation(minecraft.dependency(libs.forge))
+    implementation(minecraft.dependency("net.minecraftforge:forge:1.21.11-61.0.2"))
 
     compileOnly(project(":common"))
 
