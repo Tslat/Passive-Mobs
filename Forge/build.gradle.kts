@@ -57,22 +57,30 @@ minecraft {
 }
 
 repositories {
+    maven(minecraft.mavenizer)
+    maven(fg.forgeMaven)
+    maven(fg.minecraftLibsMaven)
     exclusiveContent {
         forRepository {
             maven {
-                name = "Forge"
-                url = uri("https://maven.minecraftforge.net/")
+                name = "Sponge"
+                url = uri("https://repo.spongepowered.org/repository/maven-public")
             }
         }
         filter {
-            includeGroupAndSubgroups("net.minecraftforge")
+            includeGroupAndSubgroups("org.spongepowered")
         }
     }
+    mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation(minecraft.dependency(libs.forge))
+
     compileOnly(project(":common"))
+
+    annotationProcessor(libs.forge.eventbusvalidator)
 }
 
 tasks.withType<JavaCompile>().configureEach {
