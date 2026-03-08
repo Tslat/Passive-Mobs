@@ -1,129 +1,99 @@
 import net.darkhax.curseforgegradle.Constants
-import net.fabricmc.loom.task.RemapJarTask
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
+import org.gradle.internal.extensions.stdlib.capitalized
 
 plugins {
-    id("passivemobs-convention")
+    id("project-setup")
 
     alias(libs.plugins.minotaur)
+    alias(libs.plugins.curseforgegradle)
     alias(libs.plugins.loom)
 }
 
-val modId              : String by project
-val modDisplayName     : String by project
-val modModrinthId      : String by project
-val modCurseforgeId    : String by project
-val modChangelogUrl    : String by project
-val modVersion         = libs.versions.passivemobs.get()
-val javaVersion        = libs.versions.java.get()
-val mcVersion          = libs.versions.minecraft.asProvider().get()
-val parchmentMcVersion = libs.versions.parchment.minecraft.get()
-val parchmentVersion   = libs.versions.parchment.asProvider().get()
-
-version = modVersion
-
-base {
-    archivesName = "${modDisplayName}-fabric-${mcVersion}"
-}
-
-repositories {
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "ParchmentMC"
-                url = uri("https://maven.parchmentmc.org")
-            }
-        }
-        filter {
-            includeGroupAndSubgroups("org.parchmentmc")
-        }
-    }
-}
+val modId           : String by project
+val modDisplayName  : String by project
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchmentMcVersion}:${parchmentVersion}@zip")
-    })
-    modImplementation(libs.fabric)
-    modImplementation(libs.fabric.api)
+    implementation(libs.fabric)
     compileOnly(project(":common"))
+
+    // Mod Dependencies below
+    //implementation(libs.geckolib.fabric)
 }
 
 loom {
-    //accessWidenerPath = file("src/main/resources/${modId}.accesswidener")
+    file("src/main/resources/$modId.classtweaker").takeIf { it.exists() }?.let(accessWidenerPath::set)
 
     runs {
-        named("client") {
-            configName = "Fabric Client"
-
-            client()
+        configureEach {
+            runDir("runs/$name")
             ideConfigGenerated(true)
-            runDir("runs/" + name)
+            configName = "Fabric ${name.capitalized()}"
+        }
+
+        named("client") {
+            client()
             programArg("--username=Dev")
         }
 
         named("server") {
-            configName = "Fabric Server"
-
             server()
-            ideConfigGenerated(true)
-            runDir("runs/" + name)
         }
     }
 }
 
-tasks.withType<Test>().configureEach {
-    failOnNoDiscoveredTests = false
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    source(project(":common").sourceSets.getByName("main").allSource)
-}
-
-tasks.named<Jar>("sourcesJar").configure {
-    from(project(":common").sourceSets.getByName("main").allSource)
-}
-
-tasks.withType<Javadoc>().configureEach {
-    source(project(":common").sourceSets.getByName("main").allJava)
-}
-
 tasks.withType<ProcessResources>().configureEach {
-    from(project(":common").sourceSets.getByName("main").resources)
-    exclude("**/accesstransformer-nf.cfg")
+    exclude("**/accesstransformer.cfg")
 }
 
+//<editor-fold defaultstate="collapsed" desc="<Publishing>">
+// Must have your Modrinth API Key as an environment variable under 'MODRINTH_TOKEN'
 modrinth {
-    token = System.getenv("modrinthKey") ?: "Invalid/No API Token Found"
-    projectId = modModrinthId
-    versionNumber.set(modVersion)
-    versionName = "Fabric ${mcVersion}"
-    uploadFile.set(tasks.named<RemapJarTask>("remapJar"))
-    changelog.set(modChangelogUrl)
-    gameVersions.set(listOf(mcVersion))
+    token = System.getenv("MODRINTH_TOKEN") ?: "Invalid/No API Token Found"
+    uploadFile.set(tasks.jar)
+    projectId.set(properties["modrinthProjectId"] as String)
+    versionName = "Fabric ${libs.versions.minecraft.asProvider().get()}"
     versionType = "release"
     loaders.set(listOf("fabric"))
+    versionNumber.set(project.version.toString())
+    gameVersions.set(listOf(libs.versions.minecraft.asProvider().get()))
+    dependencies {
+        required.project("fabric-api")
+    }
 
-    //debugMode = true
-    //https://github.com/modrinth/minotaur#available-properties
+    if (rootProject.file("CHANGELOG.md").exists())
+        changelog.set(rootProject.file("CHANGELOG.md").readText(Charsets.UTF_8))
+
+    // Comment out below to enable publishing properly
+    debugMode = true
+    // See below for other properties and info
+    // https://github.com/modrinth/minotaur#available-properties
 }
 
+// Must have your CurseForge API Key as an environment variable under 'CURSEFORGE_TOKEN'
 tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     group = "publishing"
-    apiToken = System.getenv("curseforge.apitoken") ?: "Invalid/No API Token Found"
+    apiToken = System.getenv("CURSEFORGE_TOKEN") ?: "Invalid/No API Token Found"
 
-    val mainFile = upload(modCurseforgeId, tasks.remapJar)
-    mainFile.displayName = "${modDisplayName} Fabric ${mcVersion} ${version}"
+    val mainFile = upload(properties["curseforgeProjectId"], tasks.jar)
+    mainFile.displayName = "$modDisplayName Fabric ${libs.versions.minecraft.asProvider().get()} ${project.version}"
     mainFile.releaseType = "release"
     mainFile.addModLoader("Fabric")
-    mainFile.addGameVersion(mcVersion)
-    mainFile.addJavaVersion("Java ${javaVersion}")
-    mainFile.changelog = modChangelogUrl
+    mainFile.addGameVersion(libs.versions.minecraft.asProvider().get())
+    mainFile.addJavaVersion("Java ${libs.versions.java}")
+    mainFile.addRelation("fabric-api", Constants.RELATION_REQUIRED)
+    mainFile.addEnvironment("Client", "Server")
 
-    //debugMode = true
-    //https://github.com/Darkhax/CurseForgeGradle#available-properties
+    if (rootProject.file("CHANGELOG.md").exists()) {
+        mainFile.changelog = rootProject.file("CHANGELOG.md").readText(Charsets.UTF_8)
+        mainFile.changelogType = "markdown"
+    }
+
+    // Comment out below to enable publishing properly
+    debugMode = true
+    // See below for other properties and info
+    // https://github.com/Darkhax/CurseForgeGradle#available-properties
 }
 
 publishing {
@@ -139,3 +109,4 @@ tasks.named<DefaultTask>("publish").configure {
     finalizedBy("modrinth")
     finalizedBy("publishToCurseForge")
 }
+//</editor-fold>

@@ -1,8 +1,9 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-		
-		// Fabric
+        mavenCentral()
+
+        // Fabric
         exclusiveContent {
             forRepository {
                 maven {
@@ -15,8 +16,8 @@ pluginManagement {
                 includeGroup("fabric-loom")
             }
         }
-		
-		// NeoForge
+
+        // NeoForge
         exclusiveContent {
             forRepository {
                 maven {
@@ -29,8 +30,8 @@ pluginManagement {
                 includeGroup("codechicken")
             }
         }
-		
-		// Forge
+
+        // Forge
         exclusiveContent {
             forRepository {
                 maven {
@@ -42,8 +43,8 @@ pluginManagement {
                 includeGroupAndSubgroups("net.minecraftforge")
             }
         }
-		
-		// Mixin
+
+        // Mixin
         exclusiveContent {
             forRepository {
                 maven {
@@ -55,19 +56,6 @@ pluginManagement {
                 includeGroupAndSubgroups("org.spongepowered")
             }
         }
-
-		// Parchment
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = "Parchment"
-                    url = uri("https://maven.parchmentmc.org")
-                }
-            }
-            filter {
-                includeGroupAndSubgroups("org.parchmentmc")
-            }
-        }
     }
 }
 
@@ -75,8 +63,10 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+// Keep this lowercase, without spaces or symbols
 rootProject.name = "passivemobs"
+
 include("common")
 include("fabric")
-include("forge")
-include("neoforge")
+//include("forge")
+//include("neoforge")
