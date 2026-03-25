@@ -1,4 +1,4 @@
-import net.minecraftforge.jarjar.gradle.JarJar
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     id("project-setup")
@@ -12,9 +12,8 @@ plugins {
 val modId           : String by project
 val modDisplayName  : String by project
 
-minecraft {
-    mappings("parchment", "${libs.versions.parchment.minecraft.get()}-${libs.versions.parchment.asProvider().get()}")
 
+minecraft {
     runs {
         configureEach {
             workingDir.convention(layout.projectDirectory.dir("runs/${name}"))
@@ -70,19 +69,11 @@ dependencies {
     //implementation(fg.deobf(libs.geckolib.forge))
 }
 
-tasks.named<Jar>("jar").configure {
-    archiveClassifier.set("slim")
-}
-
-tasks.named<DefaultTask>("assemble").configure {
-    dependsOn("jarJar")
-}
-
 //<editor-fold defaultstate="collapsed" desc="<Publishing>">
 // Must have your Modrinth API Key as an environment variable under 'MODRINTH_TOKEN'
 modrinth {
     token = System.getenv("MODRINTH_TOKEN") ?: "Invalid/No API Token Found"
-    uploadFile.set(tasks.named<JarJar>("jarJar"))
+    uploadFile.set(tasks.named<Jar>("jar"))
     projectId.set(properties["modrinthProjectId"] as String)
     versionName = "Forge ${libs.versions.minecraft.asProvider().get()}"
     versionType = "release"
@@ -104,7 +95,7 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     group = "publishing"
     apiToken = System.getenv("CURSEFORGE_TOKEN") ?: "Invalid/No API Token Found"
 
-    val mainFile = upload(properties["curseforgeProjectId"], tasks.named<JarJar>("jarJar"))
+    val mainFile = upload(properties["curseforgeProjectId"], tasks.jar)
     mainFile.displayName = "$modDisplayName Forge ${libs.versions.minecraft.asProvider().get()} ${project.version}"
     mainFile.releaseType = "release"
     mainFile.addModLoader("Forge")
@@ -127,7 +118,7 @@ publishing {
     publishing {
         publications {
             create<MavenPublication>(modId) {
-                from(components["jarJar"])
+                from(components["java"])
                 artifactId = base.archivesName.get()
             }
         }

@@ -14,7 +14,7 @@ val modId           : String by project
 val modDisplayName  : String by project
 
 dependencies {
-    minecraft(libs.minecraft)
+    minecraft(libs.loom.minecraft)
     implementation(libs.fabric)
     compileOnly(project(":common"))
 

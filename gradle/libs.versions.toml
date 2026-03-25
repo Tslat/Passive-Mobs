@@ -4,8 +4,8 @@
 
 # Common
     minecraft-range                 = "[26.1,)"
-    minecraft                       = "26.1-snapshot-11"
-    neoform                         = "26.1-snapshot-11-1"
+    minecraft                       = "26.1"
+    neoform                         = "26.1-1"
     java                            = "25"
 
 # Fabric
@@ -13,29 +13,30 @@
     fabric-range                    = "0.18"
 
 # Forge
-    forge                           = "61.0.8"
-    forge-mc                        = "1.21.11-61.0.8"
-    forge-fml-range                 = "[61.0.0,)"
-    forge-range                     = "[61.0.0,)"
+    forge                           = "62.0.1"
+    forge-mc                        = "26.1-62.0.1"
+    forge-fml-range                 = "[62.0.1,)"
+    forge-range                     = "[62.0.1,)"
+    forge-eventbusvalidator         = "7.0-beta.15"
 
 # Neoforge
     neoforge-loader-range           = "[5,)"
-    neoforge                        = "26.1.0.0-alpha.12+snapshot-11"
-    neoforge-range                  = "[26.1.0.0,)"
+    neoforge                        = "26.1.0.1-beta"
+    neoforge-range                  = "[26.1.0.1,)"
 
 # Mixin
     mixin                           = "0.8.7"
     mixinextras                     = "0.5.3"
-    mixinextras-range               = "[0.5.2,)"
+    mixinextras-range               = "[0.5.3,)"
 
 # Plugins
-    plugin-moddevgradle             = "2.0.140"
-    plugin-minotaur                 = "2.8.10"
+    plugin-moddevgradle             = "2.0.141"
+    plugin-minotaur                 = "2.9.0"
     plugin-curseforge-gradle        = "1.1.28"
-    plugin-forge-gradle             = "[7.0.0,)"
-    plugin-forge-at                 = "[5.0.1,)"
+    plugin-forge-gradle             = "[7.0.17,)"
+    plugin-forge-at                 = "[5.0.3,)"
     plugin-loom                     = "1.15-SNAPSHOT"
-    plugin-idea-ext                 = "1.4"
+    plugin-idea-ext                 = "1.4.1"
 
 # See the below link for more information about version catalogues
 # https://docs.gradle.org/current/userguide/version_catalogs.html
@@ -45,11 +46,16 @@
     mixin                   = { group = "org.spongepowered",        name = "mixin",                 version.ref = "mixin" }
     mixinextras-common      = { group = "io.github.llamalad7",      name = "mixinextras-common",    version.ref = "mixinextras" }
 
-# Platform
-    neoforge                = { group = "net.neoforged",            name = "neoforge",              version.ref = "neoforge" }
-    forge                   = { group = "net.minecraftforge",       name = "forge",                 version.ref = "forge-mc" }
+# Fabric
     fabric                  = { group = "net.fabricmc",             name = "fabric-loader",         version.ref = "fabric" }
-    minecraft               = { group = "com.mojang",               name = "minecraft",             version.ref = "minecraft" }
+    loom-minecraft          = { group = "com.mojang",               name = "minecraft",             version.ref = "minecraft" }
+
+# Forge
+    forge                   = { group = "net.minecraftforge",       name = "forge",                 version.ref = "forge-mc" }
+    forge-eventbusvalidator = { group = "net.minecraftforge",       name = "eventbus-validator",    version.ref = "forge-eventbusvalidator" }
+
+# NeoForge
+    neoforge                = { group = "net.neoforged",            name = "neoforge",              version.ref = "neoforge" }
 
 [plugins]
 # Publishing
