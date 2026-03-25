@@ -66,7 +66,7 @@ modrinth {
         changelog.set(rootProject.file("CHANGELOG.md").readText(Charsets.UTF_8))
 
     // Comment out below to enable publishing properly
-    debugMode = true
+    //debugMode = true
     // See below for other properties and info
     // https://github.com/modrinth/minotaur#available-properties
 }
@@ -81,7 +81,7 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
     mainFile.releaseType = "release"
     mainFile.addModLoader("Fabric")
     mainFile.addGameVersion(libs.versions.minecraft.asProvider().get())
-    mainFile.addJavaVersion("Java ${libs.versions.java}")
+    mainFile.addJavaVersion("Java ${libs.versions.java.get()}")
     mainFile.addRelation("fabric-api", Constants.RELATION_REQUIRED)
     mainFile.addEnvironment("Client", "Server")
 
@@ -89,9 +89,12 @@ tasks.register<TaskPublishCurseForge>("publishToCurseForge") {
         mainFile.changelog = rootProject.file("CHANGELOG.md").readText(Charsets.UTF_8)
         mainFile.changelogType = "markdown"
     }
+    else {
+        mainFile.changelog = ""
+    }
 
     // Comment out below to enable publishing properly
-    debugMode = true
+    //debugMode = true
     // See below for other properties and info
     // https://github.com/Darkhax/CurseForgeGradle#available-properties
 }
