@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.minotaur)
     alias(libs.plugins.curseforgegradle)
     alias(libs.plugins.forgegradle)
-    alias(libs.plugins.forge.at)
 }
 
 val modId           : String by project
@@ -14,6 +13,8 @@ val modDisplayName  : String by project
 
 
 minecraft {
+    //accessTransformer.setFrom(project(":common").file("src/main/resources/META-INF/accesstransformer.cfg"))
+    
     runs {
         configureEach {
             workingDir.convention(layout.projectDirectory.dir("runs/${name}"))
@@ -54,14 +55,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly(project(":common"))
     implementation(minecraft.dependency(libs.forge))
-    compileOnly(project(":common")) {
-        rootProject.file("common/src/main/resources/META-INF/accesstransformer.cfg").takeIf { it.exists() }?.let {
-            accessTransformers.configure(this) {
-                config.set(it)
-            }
-        }
-    }
 
     annotationProcessor(libs.forge.eventbusvalidator)
 
