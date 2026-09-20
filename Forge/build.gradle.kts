@@ -8,8 +8,8 @@ plugins {
     alias(libs.plugins.forgegradle)
 }
 
-val modId           : String by project
-val modDisplayName  : String by project
+val modId           = project.property("modId") as String
+val modDisplayName  = project.property("modDisplayName") as String
 
 
 minecraft {

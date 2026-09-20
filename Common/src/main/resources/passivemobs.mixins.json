@@ -9,7 +9,7 @@
   "mixins": [
     "BrainMixin",
     "EnderDragonMixin",
-    "EnderManMixin",
+    "EndermanMixin",
     "FoxMixin",
     "MobMixin",
     "WitherBossMixin",
